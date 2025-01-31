@@ -1,0 +1,32 @@
+from langchain.chains import RetrievalQA
+from langchain_community.llms import Ollama
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+
+# Initialize the embedding model (same as before)
+embedding_model = HuggingFaceEmbeddings(model_name="NeuML/pubmedbert-base-embeddings")
+
+# Load the persisted Chroma vector store
+vector_store = Chroma(
+    persist_directory="./chroma_db",  # Directory where the vector store is persisted
+    embedding_function=embedding_model
+)
+
+# Initialize the locally running Ollama model (Llama 3.2)
+llm = Ollama(model="llama3.2")  # Replace with your Ollama model name
+
+# Create a RetrievalQA chain
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=vector_store.as_retriever(),
+    return_source_documents=True
+)
+
+# Query the RAG system
+query = "what to do if I have fever?"
+response = qa_chain({"query": query})
+
+# Print the response
+print("Answer:", response["result"])
+#print("Source Documents:", response["source_documents"])
