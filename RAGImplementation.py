@@ -14,7 +14,7 @@ text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 texts = text_splitter.split_documents(documents)
 
 # Initialize the embedding model (NeuML/pubmedbert-base-embeddings)
-embedding_model = HuggingFaceEmbeddings(model_name="NeuML/pubmedbert-base-embeddings")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 # Create a Chroma vector store from the documents
 vector_store = Chroma.from_documents(texts, embedding_model, persist_directory="./chroma_db")

@@ -4,7 +4,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
 # Initialize the embedding model (same as before)
-embedding_model = HuggingFaceEmbeddings(model_name="NeuML/pubmedbert-base-embeddings")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 # Load the persisted Chroma vector store
 vector_store = Chroma(
