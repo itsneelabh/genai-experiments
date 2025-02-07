@@ -24,7 +24,7 @@ qa_chain = RetrievalQA.from_chain_type(
 )
 
 # Query the RAG system
-query = "what to do if I have fever?"
+query = "What is artificial intelligence?"
 response = qa_chain({"query": query})
 
 # Print the response
